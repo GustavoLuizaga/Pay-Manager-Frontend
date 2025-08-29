@@ -3,10 +3,8 @@ import { OutstandingBalancePage } from "../pages/OutstandingBalancePage";
 
 export function RoutesConfig() {
     return (
-       <BrowserRouter>
             <Routes>
-                <Route path="/o" element={<OutstandingBalancePage />} />
+                <Route path="/" element={<OutstandingBalancePage />} />
             </Routes>
-       </BrowserRouter>
     );
 }

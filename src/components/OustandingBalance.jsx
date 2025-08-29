@@ -4,15 +4,15 @@ export function OutstandingBalance({balanceCards}) {
     return (
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-            {balanceCards.map((cardData, index) => (
+            {balanceCards.map((cardData) => (
                 <OutstandingBalanceCard
-                    key={index}
+                    key={cardData.id}
                     title={cardData.title}
                     fullName={cardData.fullName}
-                    endDate={cardData.endDate}
-                    totalAmount={cardData.totalAmount}
-                    pendingAmount={cardData.pendingAmount}
-                    status={cardData.status}
+                    endDate={cardData.dateEnd}
+                    totalAmount={cardData.mount}
+                    pendingAmount={cardData.balance}
+                    status={cardData.state}
                     description={cardData.description}
                 />
             ))}

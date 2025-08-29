@@ -22,7 +22,7 @@ export function PayModal({ isOpen, onClose, changeStatus }) {
                         />
                     </div>
                     
-                    <form className="flex justify-between">
+                    <div className="flex justify-between">
                         <button 
                             type="button" 
                             onClick={onClose}
@@ -37,7 +37,7 @@ export function PayModal({ isOpen, onClose, changeStatus }) {
                         >
                             Confirmar pago
                         </button>
-                    </form>
+                    </div>
                 </form>
             </div>
         </div>

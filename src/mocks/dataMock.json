@@ -1,0 +1,219 @@
+{
+    "success": true,
+    "message": "Outstanding balances retrieved successfully",
+    "data": [
+        {
+            "dateStart": "2025-08-10",
+            "title": "Factura Agosto",
+            "description": "Pago pendiente de factura",
+            "dateEnd": "2025-08-20",
+            "fullName": "Juan Pérez",
+            "mount": 1500,
+            "state": false,
+            "payBalances": [
+                {
+                    "id": 1,
+                    "datePay": "2025-08-10",
+                    "mountPay": 300,
+                    "payType": "qr"
+                },
+                {
+                    "id": 4,
+                    "datePay": "2025-08-01",
+                    "mountPay": 200,
+                    "payType": "qr"
+                },
+                {
+                    "id": 5,
+                    "datePay": "2025-08-12",
+                    "mountPay": 250,
+                    "payType": "TRANSFERENCIA"
+                },
+                {
+                    "id": 6,
+                    "datePay": "2025-08-12",
+                    "mountPay": 50,
+                    "payType": "TRANSFERENCIA"
+                },
+                {
+                    "id": 7,
+                    "datePay": "2025-08-15",
+                    "mountPay": 100,
+                    "payType": "Pago por QR"
+                },
+                {
+                    "id": 8,
+                    "datePay": "2025-08-15",
+                    "mountPay": 600,
+                    "payType": "Pago por QR"
+                }
+            ],
+            "id": 1,
+            "balance": 0
+        },
+        {
+            "dateStart": "2025-08-10",
+            "title": "Factura Agosto 2",
+            "description": "Pago pendiente de factura 2",
+            "dateEnd": "2025-08-20",
+            "fullName": "Juan Pérez mamami",
+            "mount": 1500,
+            "state": true,
+            "payBalances": [],
+            "id": 2,
+            "balance": 1500
+        },
+        {
+            "dateStart": "2025-08-10",
+            "title": "Factura Agosto 3",
+            "description": "Pago pendiente de factura 2",
+            "dateEnd": "2025-08-20",
+            "fullName": "Juan Pérez mamami",
+            "mount": 1500,
+            "state": true,
+            "payBalances": [
+                {
+                    "id": 2,
+                    "datePay": "2025-08-10",
+                    "mountPay": 300,
+                    "payType": "qr"
+                },
+                {
+                    "id": 3,
+                    "datePay": "2025-08-10",
+                    "mountPay": 300,
+                    "payType": "qr"
+                }
+            ],
+            "id": 6,
+            "balance": 900
+        },
+        {
+            "dateStart": "2025-08-20",
+            "title": "Factura Agosto 7",
+            "description": "Pago pendiente de factura 7",
+            "dateEnd": "2025-08-20",
+            "fullName": "Juan Pérez mamami",
+            "mount": 1500,
+            "state": false,
+            "payBalances": [
+                {
+                    "id": 13,
+                    "datePay": "2025-08-15",
+                    "mountPay": 500,
+                    "payType": "preubaaaass"
+                },
+                {
+                    "id": 14,
+                    "datePay": "2025-08-15",
+                    "mountPay": 1000,
+                    "payType": "preubaaaass"
+                }
+            ],
+            "id": 7,
+            "balance": 0
+        },
+        {
+            "dateStart": "2025-08-01",
+            "title": "Préstamo personal",
+            "description": "Préstamo otorgado en agosto",
+            "dateEnd": "2025-12-01",
+            "fullName": "Gustavo Luizaga Merino",
+            "mount": 5000,
+            "state": true,
+            "payBalances": [
+                {
+                    "id": 11,
+                    "datePay": "2025-08-15",
+                    "mountPay": 4500,
+                    "payType": "preubaaaa"
+                },
+                {
+                    "id": 12,
+                    "datePay": "2025-08-15",
+                    "mountPay": 500,
+                    "payType": "preubaaaa"
+                }
+            ],
+            "id": 8,
+            "balance": 0
+        },
+        {
+            "dateStart": "2025-08-01",
+            "title": "Préstamo personal",
+            "description": "Préstamo otorgado en agosto",
+            "dateEnd": "2025-12-01",
+            "fullName": "Gustavo Luizaga Merino 2",
+            "mount": 5000,
+            "state": true,
+            "payBalances": [
+                {
+                    "id": 10,
+                    "datePay": "2025-08-15",
+                    "mountPay": 5000,
+                    "payType": "Pago por QR"
+                }
+            ],
+            "id": 9,
+            "balance": 0
+        },
+        {
+            "dateStart": "2025-08-01",
+            "title": "Préstamo personal",
+            "description": "Préstamo otorgado en agosto",
+            "dateEnd": "2025-12-01",
+            "fullName": "Gustavo Luizaga Merino 2",
+            "mount": 5000,
+            "state": false,
+            "payBalances": [
+                {
+                    "id": 9,
+                    "datePay": "2025-08-15",
+                    "mountPay": 5000,
+                    "payType": "Pago por QR"
+                }
+            ],
+            "id": 10,
+            "balance": 0
+        },
+        {
+            "dateStart": "2025-08-01",
+            "title": "Pribando ",
+            "description": "Pago pendiente de electricidad",
+            "dateEnd": "2025-08-31",
+            "fullName": "Juan Pérez",
+            "mount": 500,
+            "state": false,
+            "payBalances": [
+                {
+                    "id": 15,
+                    "datePay": "2025-08-31",
+                    "mountPay": 100,
+                    "payType": "Pago en QR"
+                }
+            ],
+            "id": 13,
+            "balance": 400
+        },
+        {
+            "dateStart": "2025-08-01",
+            "title": "Pribando 2",
+            "description": "Pago pendiente de electricidad",
+            "dateEnd": "2025-08-31",
+            "fullName": "Juan Pérez",
+            "mount": 3500,
+            "state": false,
+            "payBalances": [
+                {
+                    "id": 16,
+                    "datePay": "2025-08-31",
+                    "mountPay": 600,
+                    "payType": "Pago en QR"
+                }
+            ],
+            "id": 14,
+            "balance": 2900
+        }
+    ],
+    "timestamp": "2025-09-02T18:35:28.9250767"
+}

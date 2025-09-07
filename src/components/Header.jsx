@@ -1,9 +1,13 @@
-import { FiHome, FiUsers, FiDollarSign, FiBarChart2, FiPlus } from "react-icons/fi";
+import { FiHome, FiUsers, FiDollarSign, FiBarChart2 } from "react-icons/fi";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useState, useEffect } from "react";
 
+
 export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -48,14 +52,9 @@ export function Header() {
                 </nav>
 
                 <div className="flex items-center gap-2 md:gap-0">
-                    <button className="flex items-center gap-2 bg-[#45d055] hover:bg-green-400 text-white rounded-md px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium sm:font-semibold whitespace-nowrap">
-                        <FiPlus className="w-4 h-4 sm:w-5 sm:h-5"/>
-                        <span className="hidden xs:inline">Nuevo pago</span>
-                        <span className="xs:hidden">Nuevo pago</span>
-                    </button>
-                    
-                    <button 
-                        className="md:hidden ml-2 text-[#1A1A1A] focus:outline-none" 
+
+                    <button
+                        className="md:hidden ml-2 text-[#1A1A1A] focus:outline-none"
                         onClick={toggleMenu}
                         aria-label="Menú principal"
                     >

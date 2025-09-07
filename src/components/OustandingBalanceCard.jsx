@@ -1,73 +1,106 @@
 
-import { FiUser } from "react-icons/fi";
-import { FiCalendar } from "react-icons/fi";
-import { PiMoneyLight } from "react-icons/pi";
+import { BsCalendarEvent } from "react-icons/bs";
 import { useState } from "react";
 import { PayModal } from "./PayModal";
 
 export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, pendingAmount, status, description }) {
     const [completed, setCompleted] = useState(status);
     const [isOpen, setIsOpen] = useState(false);
-    //const [balance, setBalance] = useState(pendingAmount);
-
 
     const handleRegisterPayment = () => {
         setIsOpen(!isOpen);
     }
+    const getInitials = (name) => {
+        return name.split(' ').map(word => word[0]).join('').slice(0, 2).toUpperCase();
+    }
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const months = [
+            'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+            'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+        ];
+
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${day} ${month} ${year}`;
+    }
+
+    const getDaysUntilDue = () => {
+        const today = new Date();
+        const dueDate = new Date(endDate);
+        const diffTime = dueDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }
+
+    const daysLeft = getDaysUntilDue();
 
     return (
-        <div className="w-full rounded-lg p-4 shadow-md">
-            <header className="flex justify-between items-center">
-                <h3 className="text-xl text-wrap line-clamp-2 font-bold">{title}</h3>
-                <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${completed
-                    ? "bg-red-400/10 text-red-500 inset-ring inset-ring-red-500/20"
-                    : "bg-green-400/10 text-green-500 inset-ring inset-ring-green-500/20"
+        <div className="w-full bg-white rounded-2xl p-3 sm:p-5 shadow-md border border-gray-100 hover:shadow-lg transition-shadow relative">
+            <header className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-700 to-black rounded-full flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0">
+                    {getInitials(fullName)}
+                </div>
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-[#1A1A1A] text-sm sm:text-base line-clamp-1">{fullName}</h3>
+                            <p className="text-xs sm:text-sm text-[#767676]">
+                                {daysLeft > 0 ? `Vence en ${daysLeft} días` : daysLeft === 0 ? 'Vence hoy' : `Vencido hace ${Math.abs(daysLeft)} días`}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            {/* Título del trabajo/factura */}
+            <div className="mb-2 sm:mb-3">
+                <h4 className="font-medium text-[#1A1A1A] text-xs sm:text-sm line-clamp-2 mb-1 sm:mb-2">{title}</h4>
+                <p className="text-xs sm:text-sm text-[#767676] line-clamp-2">{description}</p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium w-fit ${completed
+                    ? "bg-red-400/10 text-red-500"
+                    : "bg-green-400/10 text-green-500"
                     }`}>
                     {completed ? "Pendiente" : "Completo"}
                 </span>
-            </header>
-            <main className="mt-4">
-                <p className="mb-2 text-sm line-clamp-3 text-wrap">{description}</p>
-                <div className="flex flex-col mt-2">
-                    <span className="self-start rounded-md bg-[#EBEBEB] font-semibold px-2 py-1 inline-flex items-center gap-1.5 text-sm">
-                        <FiUser className="text-gray-500 text-base" />
-                        <span>{fullName}</span>
-                    </span>
-                    <div className="flex justify-between mt-2 gap-4">
-                        <dl>
-                            <dd className="inline-flex items-center gap-1.5 rounded-md bg-[#EBEBEB] px-2 py-1 font-semibold text-sm">
-                                <FiCalendar className="text-gray-500 text-base" />
-                                <span>{endDate}</span>
-                            </dd>
-                            <dt className="text-xs text-[#767676] px-2">Fecha limite</dt>
-                        </dl>
-                        <dl >
-                            <dd className="inline-flex items-center gap-1.5 rounded-md bg-[#EBEBEB] px-2 py-1 font-medium text-sm">
-                                <PiMoneyLight className="text-gray-500 text-base" />
-                                <span>Bs {totalAmount}</span>
-                            </dd>
-                            <dt className="text-xs text-[#767676] px-2">Monto total</dt>
-                        </dl>
-                    </div>
-                </div>
-                <hr className="w-full h-px bg-gray-200 border-0 mt-2 my-2" />
-                <footer className="flex items-center justify-between mt-auto">
-                    <div className="flex flex-col px-1">
-                        <span className="text-xl font-medium">Bs {pendingAmount}</span>
-                        <span className="text-xs text-[#767676]">Saldo pendiente</span>
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#EBEBEB] text-[#1A1A1A] rounded-md text-xs font-medium w-fit">
+                    <BsCalendarEvent className="w-3 h-3 text-[#1A1A1A]" />
+                    {formatDate(endDate)}
+                </span>
 
+            </div>
+
+            <div className="mb-3">
+                <div className="sm:text-left">
+                    <div className="flex items-baseline gap-1  sm:justify-start">
+                        <span className="text-xl sm:text-2xl font-semibold text-[#1A1A1A]">Bs {pendingAmount}</span>
+                        {pendingAmount < totalAmount && (
+                            <span className="text-xs sm:text-sm text-[#767676] line-through">Bs {totalAmount}</span>
+                        )}
                     </div>
-                    <button className="bg-[#1A1A1A] text-sm text-white py-2 px-4 rounded-md hover:bg-[#1A1A1A]/85 hover:scale-105 transition-all"
-                        onClick={handleRegisterPayment}>Registrar pago</button>
-                </footer>
-            </main>
+                    <p className="text-xs sm:text-sm text-[#767676]">Saldo pendiente</p>
+                </div>
+            </div>
+            <footer>
+                <button
+                    className="bg-[#1A1A1A] text-white px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-[#1A1A1A]/85 hover:scale-105 transition-all w-full"
+                    onClick={handleRegisterPayment}
+                >
+                    Registrar pago
+                </button>
+            </footer>
+
             <PayModal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 changeStatus={() => setCompleted(!completed)}
             />
         </div>
-
     );
 }

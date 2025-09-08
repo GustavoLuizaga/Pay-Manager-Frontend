@@ -83,47 +83,53 @@ export function OutstandingBalancePage() {
         </form>
       </div>
 
-      <section className="bg-[#1A1A1A] text-white mt-8 p-6 rounded-2xl mb-6 w-full sm:w-2xl">
-        <div className="flex items-center justify-between">
-          {/* Información principal */}
-          <div className="flex-1">
-            <div className="flex items-center gap-4 mb-2">
-              <h3 className="text-lg font-semibold">Saldos Pendientes</h3>
-              <div className="w-px h-6 bg-gray-600"></div>
-              <span className="text-sm text-gray-300">Gestión de Pagos</span>
+      {/* Boarding Pass Design - Copia exacta */}
+      <section className="bg-[#1A1A1A] text-white rounded-2xl p-6 mb-8 shadow-lg max-w-md mx-auto">
+        {/* Header con ciudades */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-left">
+            <div className="text-sm text-gray-400">Gestiona tus saldos</div>
+            <div className="text-2xl font-bold">CGK</div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
+              <div className="w-4 h-4 bg-white rounded-full"></div>
             </div>
-            <p className="text-sm text-gray-400">
-              Crear un nuevo saldo pendiente para seguimiento
-            </p>
           </div>
-
-          {/* Botón de acción */}
-          <button
-            onClick={handleOpenForm}
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2 transition-all hover:scale-105"
-          >
-            <FiPlus className="w-5 h-5" />
-            <span className="hidden sm:inline">Agregar Saldo</span>
-          </button>
-        </div>
-
-        {/* Línea decorativa inferior */}
-        <div className="mt-4 pt-4 border-t border-gray-700">
-          <div className="flex items-center justify-between text-sm text-gray-400">
-            <dl>
-              <dt>Saldos</dt>
-              <dd className="text-center text-white  text-2xl">100</dd>
-            </dl>
-            <dl>
-              <dt>Completos</dt>
-              <dd className="text-center text-green-600  text-2xl">50</dd>
-            </dl>
-            <dl>
-              <dt>Pendientes</dt>
-              <dd className="text-center text-red-500  text-2xl">25</dd>
-            </dl>
+          <div className="text-right">
+            <div className="text-sm text-gray-400">Warsawa</div>
+            <div className="text-2xl font-bold">WAW</div>
           </div>
         </div>
+
+        {/* Línea divisoria */}
+        <div className="border-t border-gray-600 my-6"></div>
+
+        {/* Información en grid */}
+        <div className="grid grid-cols-4 gap-4 text-center mb-6">
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Class</div>
+            <div className="text-sm font-semibold">Economy</div>
+          </div>
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Terminal</div>
+            <div className="text-sm font-semibold">F2</div>
+          </div>
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Gate</div>
+            <div className="text-sm font-semibold">32</div>
+          </div>
+          <div>
+            <div className="text-xs text-gray-400 mb-1">Seat</div>
+            <div className="text-sm font-semibold">8A</div>
+          </div>
+        </div>
+
+        {/* Sección check-in */}
+        <button onClick={handleOpenForm} className="w-full bg-green-500 text-white rounded-lg py-3 font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+          <FiPlus className="w-6 h-6" />
+          Añadir nuevo saldo
+        </button>
       </section>
 
       <h2 className="text-xl font-bold mb-6">Saldos Pendientes</h2>

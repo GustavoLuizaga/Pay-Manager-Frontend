@@ -47,7 +47,7 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
                 <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-[#1A1A1A] text-sm sm:text-base line-clamp-1">{fullName}</h3>
+                            <h3 className="font-semibold text-[#1A1A1A] text-md sm:text-base line-clamp-1">{fullName}</h3>
                             <p className="text-xs sm:text-sm text-[#767676]">
                                 {daysLeft > 0 ? `Vence en ${daysLeft} días` : daysLeft === 0 ? 'Vence hoy' : `Vencido hace ${Math.abs(daysLeft)} días`}
                             </p>
@@ -58,11 +58,11 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
 
             {/* Título del trabajo/factura */}
             <div className="mb-2 sm:mb-3">
-                <h4 className="font-medium text-[#1A1A1A] text-xs sm:text-sm line-clamp-2 mb-1 sm:mb-2">{title}</h4>
+                <h4 className="font-medium text-[#1A1A1A] text-sm sm:text-sm line-clamp-2 mb-1 sm:mb-2">{title}</h4>
                 <p className="text-xs sm:text-sm text-[#767676] line-clamp-2">{description}</p>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+            <div className="flex sm:flex-row sm:flex-wrap gap-2 sm:gap-2 mb-3 sm:mb-4">
                 <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium w-fit ${completed
                     ? "bg-red-400/10 text-red-500"
                     : "bg-green-400/10 text-green-500"
@@ -79,7 +79,7 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
             <div className="mb-3">
                 <div className="sm:text-left">
                     <div className="flex items-baseline gap-1  sm:justify-start">
-                        <span className="text-xl sm:text-2xl font-semibold text-[#1A1A1A]">Bs {pendingAmount}</span>
+                        <span className="text-2xl sm:text-2xl font-semibold text-[#1A1A1A]">Bs {pendingAmount}</span>
                         {pendingAmount < totalAmount && (
                             <span className="text-xs sm:text-sm text-[#767676] line-through">Bs {totalAmount}</span>
                         )}
@@ -89,7 +89,7 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
             </div>
             <footer>
                 <button
-                    className="bg-[#1A1A1A] text-white px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-[#1A1A1A]/85 hover:scale-105 transition-all w-full"
+                    className="bg-[#1A1A1A] text-white px-4 sm:px-6 py-2 rounded-lg text-sm sm:text-sm font-medium hover:bg-[#1A1A1A]/85 hover:scale-105 transition-all w-full"
                     onClick={handleRegisterPayment}
                 >
                     Registrar pago

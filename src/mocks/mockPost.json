@@ -1,0 +1,9 @@
+{
+  "dateStart": "2025-08-01",
+  "dateEnd": "2025-08-31",
+  "title": "Pribando 4",
+  "description": "Pago pendiente de electricidad",
+  "fullName": "Juan Pérez",
+  "mount": 3500,
+  "state": false
+}

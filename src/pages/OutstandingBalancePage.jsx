@@ -7,7 +7,7 @@ import { OutstandingBalanceForm } from "../components/OuststandingBalanceForm";
 
 export function OutstandingBalancePage() {
   const [balanceCards, setBalanceCards] = useState(dataMock.data || []);
-  const [originalCards, setOriginalCards] = useState(dataMock.data || []); // Guardar datos originales
+  const [originalCards, setOriginalCards] = useState(dataMock.data || []);
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,6 +56,22 @@ export function OutstandingBalancePage() {
     setIsOpen(!isOpen);
   }
 
+  // Función para agregar un nuevo saldo
+  const handleAddBalance = (newBalance) => {
+    // Agregar el nuevo saldo usando el estado previo
+    setBalanceCards(prev => [...prev, newBalance]);
+    setOriginalCards(prev => [...prev, newBalance]);
+    
+    // Si hay una búsqueda activa, mantener el filtro
+    if (query) {
+      setBalanceCards(prev => 
+        prev.filter(card =>
+          card && card.fullName && card.fullName.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    }
+  }
+
   return (
     <>
       <div className="flex justify-end items-center mb-6 gap-4">
@@ -70,7 +86,7 @@ export function OutstandingBalancePage() {
               value={query}
               onChange={handleChange}
               className="bg-gray-100 border border-gray-300 text-sm rounded-lg block ps-10 p-2.5 w-full focus:ring-2 focus:ring-[#1A1A1A] focus:border-[#1A1A1A] transition-colors"
-              placeholder="Buscar por nombre..."
+              placeholder="Buscar un saldo por nombre..."
             />
           </div>
           <button
@@ -82,63 +98,23 @@ export function OutstandingBalancePage() {
           </button>
         </form>
       </div>
-
-      {/* Boarding Pass Design - Copia exacta */}
-      <section className="bg-[#1A1A1A] text-white rounded-2xl p-6 mb-8 shadow-lg max-w-md mx-auto">
-        {/* Header con ciudades */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="text-left">
-            <div className="text-sm text-gray-400">Gestiona tus saldos</div>
-            <div className="text-2xl font-bold">CGK</div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full border border-gray-400 flex items-center justify-center">
-              <div className="w-4 h-4 bg-white rounded-full"></div>
-            </div>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-gray-400">Warsawa</div>
-            <div className="text-2xl font-bold">WAW</div>
-          </div>
-        </div>
-
-        {/* Línea divisoria */}
-        <div className="border-t border-gray-600 my-6"></div>
-
-        {/* Información en grid */}
-        <div className="grid grid-cols-4 gap-4 text-center mb-6">
-          <div>
-            <div className="text-xs text-gray-400 mb-1">Class</div>
-            <div className="text-sm font-semibold">Economy</div>
-          </div>
-          <div>
-            <div className="text-xs text-gray-400 mb-1">Terminal</div>
-            <div className="text-sm font-semibold">F2</div>
-          </div>
-          <div>
-            <div className="text-xs text-gray-400 mb-1">Gate</div>
-            <div className="text-sm font-semibold">32</div>
-          </div>
-          <div>
-            <div className="text-xs text-gray-400 mb-1">Seat</div>
-            <div className="text-sm font-semibold">8A</div>
-          </div>
-        </div>
-
-        {/* Sección check-in */}
-        <button onClick={handleOpenForm} className="w-full bg-green-500 text-white rounded-lg py-3 font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
-          <FiPlus className="w-6 h-6" />
-          Añadir nuevo saldo
+      <section>
+        <button onClick={handleOpenForm} className="flex items-center gap-2 mb-6 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+          <FiPlus className="w-4 h-4" />
+          <span>Agregar Saldo Pendiente</span>
         </button>
       </section>
-
-      <h2 className="text-xl font-bold mb-6">Saldos Pendientes</h2>
+      <h2 className="text-xl font-semibold mb-6">Saldos Pendientes</h2>
       {balanceCards?.length > 0 ? (
         <OutstandingBalance balanceCards={balanceCards} />
       ) : (
         <p>No hay saldos pendientes que coincidan con tu búsqueda.</p>
       )}
-      <OutstandingBalanceForm isOpen={isOpen} onClose={() => setIsOpen(!isOpen)} />
+      <OutstandingBalanceForm 
+        isOpen={isOpen} 
+        onClose={() => setIsOpen(!isOpen)} 
+        onAddBalance={handleAddBalance}
+      />
     </>
   );
 }

@@ -26,13 +26,13 @@ export function PayModal({ isOpen, onClose, changeStatus }) {
                         <button 
                             type="button" 
                             onClick={onClose}
-                            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-700 dark:text-red-700 dark:hover:text-white dark:hover:bg-red-700 dark:focus:ring-red-700"
                         >
                             Cancelar
                         </button>
                         <button 
                             type="submit"
-                            className="bg-[#1A1A1A] text-sm text-white px-4 rounded-md hover:bg-[#1A1A1A]/85 transition-all"
+                            className="text-white bg-[#1A1A1A] hover:bg-[#1A1A1A]/85 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
                             onClick={handleSubmit}
                         >
                             Confirmar pago

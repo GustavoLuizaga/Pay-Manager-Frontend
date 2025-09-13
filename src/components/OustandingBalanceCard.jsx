@@ -64,10 +64,10 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
 
             <div className="flex sm:flex-row sm:flex-wrap gap-2 sm:gap-2 mb-3 sm:mb-4">
                 <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium w-fit ${completed
-                    ? "bg-red-400/10 text-red-500"
-                    : "bg-green-400/10 text-green-500"
+                    ? "bg-green-400/10 text-green-500"
+                    : "bg-red-400/10 text-red-500"
                     }`}>
-                    {completed ? "Pendiente" : "Completo"}
+                    {completed ? "Completo" : "Pendiente"}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#EBEBEB] text-[#1A1A1A] rounded-md text-xs font-medium w-fit">
                     <BsCalendarEvent className="w-3 h-3 text-[#1A1A1A]" />

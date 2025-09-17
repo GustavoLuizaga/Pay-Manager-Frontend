@@ -7,6 +7,7 @@ export function OutstandingBalance({balanceCards}) {
             {balanceCards.map((cardData) => (
                 <OutstandingBalanceCard
                     key={cardData.id}
+                    id={cardData.id}
                     title={cardData.title}
                     fullName={cardData.fullName}
                     endDate={cardData.dateEnd}

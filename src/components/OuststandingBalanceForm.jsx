@@ -13,12 +13,10 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
         state: false
     });
 
-    // Estado para manejar errores de validación
     const [errors, setErrors] = useState({});
 
     if (!isOpen) return null;
 
-    // Función para manejar cambios en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -26,7 +24,6 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
             [name]: value
         }));
 
-        // Limpiar error cuando el usuario empiece a escribir
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -35,7 +32,6 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
         }
     };
 
-    // Función para validar el formulario
     const validateForm = () => {
         const newErrors = {};
 
@@ -59,7 +55,6 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
         return Object.keys(newErrors).length === 0;
     };
 
-    // Función para limpiar el formulario
     const resetForm = () => {
         setFormData({
             title: '',
@@ -75,31 +70,24 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        // Validar formulario
+
         if (!validateForm()) {
             return;
         }
-
-        // Crear nuevo saldo con estructura exacta requerida
         const newBalance = {
-            id: Date.now(), // ID único temporal
-            dateStart: Date.now(),
+            dateStart: new Date().toISOString().split('T')[0],
             dateEnd: formData.dateEnd,
             title: formData.title,
             description: formData.description || 'Sin descripción',
             fullName: formData.fullName,
             mount: parseFloat(formData.mount),
-            balance: parseFloat(formData.mount), // El saldo pendiente inicia igual que el monto total
             state: false
         };
 
-        // Llamar función del componente padre para agregar el saldo
         if (onAddBalance) {
             onAddBalance(newBalance);
         }
 
-        // Limpiar formulario y cerrar modal
         resetForm();
         onClose();
     };

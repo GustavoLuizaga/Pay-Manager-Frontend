@@ -3,7 +3,7 @@ import { BsCalendarEvent } from "react-icons/bs";
 import { useState } from "react";
 import { PayModal } from "./PayModal";
 
-export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, pendingAmount, status, description }) {
+export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmount, pendingAmount, status, description }) {
     const [completed, setCompleted] = useState(status);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -11,6 +11,7 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
         setIsOpen(!isOpen);
     }
     const getInitials = (name) => {
+        if (!name || typeof name !== 'string') return '??';
         return name.split(' ').map(word => word[0]).join('').slice(0, 2).toUpperCase();
     }
 
@@ -56,7 +57,6 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
                 </div>
             </header>
 
-            {/* Título del trabajo/factura */}
             <div className="mb-2 sm:mb-3">
                 <h4 className="font-medium text-[#1A1A1A] text-sm sm:text-sm line-clamp-2 mb-1 sm:mb-2">{title}</h4>
                 <p className="text-xs sm:text-sm text-[#767676] line-clamp-2">{description}</p>
@@ -100,6 +100,7 @@ export function OutstandingBalanceCard({ title, fullName, endDate, totalAmount, 
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 changeStatus={() => setCompleted(!completed)}
+                outstandingID={id}
             />
         </div>
     );

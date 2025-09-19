@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { OutstandingBalance } from "../components/OustandingBalance";
 import { FiSearch, FiPlus } from "react-icons/fi";
 import { OutstandingBalanceForm } from "../components/OuststandingBalanceForm";
+import BASE_URL from "../UrlBase";
 
 
 export function OutstandingBalancePage() {
@@ -14,7 +15,7 @@ export function OutstandingBalancePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/outstanding-balance');
+        const response = await fetch(`${BASE_URL}/outstanding-balance`);
         const data = await response.json();
         setBalanceCards(data.data || []);
         setOriginalCards(data.data || []);
@@ -58,7 +59,7 @@ export function OutstandingBalancePage() {
   const handleAddBalance = async (newBalance) => {
     try {
 
-      const response = await fetch('http://localhost:8080/outstanding-balance', {
+      const response = await fetch(`${BASE_URL}/outstanding-balance`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ export function OutstandingBalancePage() {
 
   const handleChangeBalances = async () => {
     try {
-      const response = await fetch('http://localhost:8080/outstanding-balance');
+      const response = await fetch(`${BASE_URL}/outstanding-balance`);
       const data = await response.json();
       setBalanceCards(data.data || []);
       setOriginalCards(data.data || []);

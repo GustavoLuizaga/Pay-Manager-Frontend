@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BASE_URL from "../UrlBase";
 
 export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
     const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
             payType: "Efectivo",
         };
 
-        await fetch(`http://localhost:8080/pay-balance/${outstandingID}`, {
+        await fetch(`${BASE_URL}/pay-balance/${outstandingID}`, {
             method: 'POST',
             headers: {      
                 'Content-Type': 'application/json'

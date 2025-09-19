@@ -41,7 +41,7 @@ export function DetailBalancePage() {
                     Bs {pending}
                 </span>
 
-                <span className="text-sm rounded-xl py-1 px-3 mt-2 bg-blue-400/15 text-blue-600 font-semibold">
+                <span className="text-xs rounded-xl py-1 px-3 mt-2 bg-blue-400/15 text-blue-600 font-semibold">
                     Monto total <strong>Bs {mount}</strong>
                 </span>
             </div>

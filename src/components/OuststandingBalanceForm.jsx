@@ -81,6 +81,7 @@ export function OutstandingBalanceForm({ isOpen, onClose, onAddBalance }) {
             description: formData.description || 'Sin descripción',
             fullName: formData.fullName,
             mount: parseFloat(formData.mount),
+            balance: parseFloat(formData.mount),
             state: false
         };
 

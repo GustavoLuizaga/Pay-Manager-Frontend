@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-export function PayModal({ isOpen, onClose, changeStatus, outstandingID }) {
+export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
     const [formData, setFormData] = useState({
         mount: ''
     });
 
+    
     if (!isOpen) return null;
-
-
-
 
     const handleChange = (e) => {
         const value = e.target.value;
         setFormData({ mount: value });
     }
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ export function PayModal({ isOpen, onClose, changeStatus, outstandingID }) {
         const newPayment = {
             datePay: new Date().toISOString().split('T')[0],
             mountPay: formData.mount,
-            typePay: "Efectivo",
+            payType: "Efectivo",
         };
 
         await fetch(`http://localhost:8080/pay-balance/${outstandingID}`, {
@@ -36,7 +36,8 @@ export function PayModal({ isOpen, onClose, changeStatus, outstandingID }) {
         console.log("Registering payment:", newPayment);
 
         onClose();
-        changeStatus();
+        setBalanceCards();
+
     };
 
     return (

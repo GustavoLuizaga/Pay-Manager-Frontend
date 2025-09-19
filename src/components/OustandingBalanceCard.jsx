@@ -1,10 +1,10 @@
 
 import { BsCalendarEvent } from "react-icons/bs";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { PayModal } from "./PayModal";
 
-export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmount, pendingAmount, status, description }) {
-    const [completed, setCompleted] = useState(status);
+export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmount, pendingAmount, status, description, setBalanceCards, payBalances }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleRegisterPayment = () => {
@@ -58,16 +58,28 @@ export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmou
             </header>
 
             <div className="mb-2 sm:mb-3">
-                <h4 className="font-medium text-[#1A1A1A] text-sm sm:text-sm line-clamp-2 mb-1 sm:mb-2">{title}</h4>
+                <Link
+                    to={`/${id}/detalle`}
+                    state={{
+                        mount: totalAmount,
+                        pending: pendingAmount,
+                        name: fullName,
+                        description: description,
+                        payBalances: payBalances || []
+                    }}
+                    className="font-medium text-[#1A1A1A] text-sm sm:text-sm line-clamp-2 mb-1 sm:mb-2 cursor-pointer hover:text-blue-600 transition-colors block"
+                >
+                    {title}
+                </Link>
                 <p className="text-xs sm:text-sm text-[#767676] line-clamp-2">{description}</p>
             </div>
 
             <div className="flex sm:flex-row sm:flex-wrap gap-2 sm:gap-2 mb-3 sm:mb-4">
-                <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium w-fit ${completed
+                <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium w-fit ${status
                     ? "bg-green-400/10 text-green-500"
                     : "bg-red-400/10 text-red-500"
                     }`}>
-                    {completed ? "Completo" : "Pendiente"}
+                    {status ? "Completo" : "Pendiente"}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#EBEBEB] text-[#1A1A1A] rounded-md text-xs font-medium w-fit">
                     <BsCalendarEvent className="w-3 h-3 text-[#1A1A1A]" />
@@ -99,8 +111,8 @@ export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmou
             <PayModal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                changeStatus={() => setCompleted(!completed)}
                 outstandingID={id}
+                setBalanceCards={setBalanceCards}
             />
         </div>
     );

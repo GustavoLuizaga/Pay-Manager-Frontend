@@ -63,14 +63,13 @@ export function OutstandingBalancePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newBalance),
+        body: JSON.stringify(newBalance)
       });
 
       if (response.ok) {
         const serverResponse = await response.json();
         console.log('Respuesta completa del servidor:', serverResponse);
 
-        // Extraer el objeto real desde data si existe, sino usar la respuesta completa
         const addedBalance = serverResponse.data || serverResponse;
         console.log('Objeto a agregar:', addedBalance);
 
@@ -85,13 +84,24 @@ export function OutstandingBalancePage() {
           );
         }
       } else {
-        // Mostrar el error específico del servidor
         const errorText = await response.text();
         console.error('Error del servidor:', response.status, errorText);
       }
     } catch (error) {
       console.error('Error de red:', error);
     }
+  }
+
+  const handleChangeBalances = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/outstanding-balance');
+      const data = await response.json();
+      setBalanceCards(data.data || []);
+      setOriginalCards(data.data || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
   }
 
   return (
@@ -128,7 +138,7 @@ export function OutstandingBalancePage() {
       </section>
       <h2 className="text-xl font-semibold mb-6">Saldos Pendientes</h2>
       {balanceCards?.length > 0 ? (
-        <OutstandingBalance balanceCards={balanceCards} />
+        <OutstandingBalance balanceCards={balanceCards} setBalanceCards={handleChangeBalances} />
       ) : (
         <p>No hay saldos pendientes que coincidan con tu búsqueda.</p>
       )}

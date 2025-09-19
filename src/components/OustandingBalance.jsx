@@ -1,6 +1,6 @@
 
 import { OutstandingBalanceCard } from "./OustandingBalanceCard"; 
-export function OutstandingBalance({balanceCards}) {
+export function OutstandingBalance({balanceCards, setBalanceCards}) {
     return (
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
@@ -15,6 +15,8 @@ export function OutstandingBalance({balanceCards}) {
                     pendingAmount={cardData.balance}
                     status={cardData.state}
                     description={cardData.description}
+                    payBalances={cardData.payBalances}
+                    setBalanceCards={setBalanceCards}
                 />
             ))}
         </div>

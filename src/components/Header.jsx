@@ -1,6 +1,7 @@
 import { FiHome, FiUsers, FiDollarSign, FiBarChart2 } from "react-icons/fi";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 export function Header() {
@@ -30,7 +31,9 @@ export function Header() {
         <header className="fixed top-0 left-0 w-full z-50  backdrop-blur-md shadow-xs ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <span className="font-bold text-lg">PayManager</span>
+                    <Link to={"/"} className="flex items-center gap-2">
+                        <span className="font-bold text-lg">PayManager</span>
+                    </Link>
                 </div>
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
                     <a href="#" className="flex items-center gap-1 hover:text-blue-400">

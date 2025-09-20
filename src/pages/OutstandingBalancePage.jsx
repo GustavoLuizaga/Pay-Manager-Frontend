@@ -1,30 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { OutstandingBalance } from "../components/OustandingBalance";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import dataMock from "../mocks/dataMock.json";
 import { OutstandingBalanceForm } from "../components/OuststandingBalanceForm";
+import BASE_URL from "../UrlBase";
 
 
 export function OutstandingBalancePage() {
-  const [balanceCards, setBalanceCards] = useState(dataMock.data || []);
-  const [originalCards, setOriginalCards] = useState(dataMock.data || []);
+  const [balanceCards, setBalanceCards] = useState([]);
+  const [originalCards, setOriginalCards] = useState([]);
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:8080/outstanding-balance');
-  //       const data = await response.json();
-  //       setBalanceCards(data.data || []);
-  //       setOriginalCards(data.data || []); // Guardar una copia
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/outstanding-balance`);
+        const data = await response.json();
+        setBalanceCards(data.data || []);
+        setOriginalCards(data.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleChange = async (e) => {
     const value = e.target.value;
@@ -56,20 +56,53 @@ export function OutstandingBalancePage() {
     setIsOpen(!isOpen);
   }
 
-  // Función para agregar un nuevo saldo
-  const handleAddBalance = (newBalance) => {
-    // Agregar el nuevo saldo usando el estado previo
-    setBalanceCards(prev => [...prev, newBalance]);
-    setOriginalCards(prev => [...prev, newBalance]);
-    
-    // Si hay una búsqueda activa, mantener el filtro
-    if (query) {
-      setBalanceCards(prev => 
-        prev.filter(card =>
-          card && card.fullName && card.fullName.toLowerCase().includes(query.toLowerCase())
-        )
-      );
+  const handleAddBalance = async (newBalance) => {
+    try {
+
+      const response = await fetch(`${BASE_URL}/outstanding-balance`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newBalance)
+      });
+
+      if (response.ok) {
+        const serverResponse = await response.json();
+        console.log('Respuesta completa del servidor:', serverResponse);
+
+        const addedBalance = serverResponse.data || serverResponse;
+        console.log('Objeto a agregar:', addedBalance);
+
+        setBalanceCards(prev => [...prev, addedBalance]);
+        setOriginalCards(prev => [...prev, addedBalance]);
+
+        if (query) {
+          setBalanceCards(prev =>
+            prev.filter(card =>
+              card && card.fullName && card.fullName.toLowerCase().includes(query.toLowerCase())
+            )
+          );
+        }
+      } else {
+        const errorText = await response.text();
+        console.error('Error del servidor:', response.status, errorText);
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
     }
+  }
+
+  const handleChangeBalances = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/outstanding-balance`);
+      const data = await response.json();
+      setBalanceCards(data.data || []);
+      setOriginalCards(data.data || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
   }
 
   return (
@@ -106,13 +139,13 @@ export function OutstandingBalancePage() {
       </section>
       <h2 className="text-xl font-semibold mb-6">Saldos Pendientes</h2>
       {balanceCards?.length > 0 ? (
-        <OutstandingBalance balanceCards={balanceCards} />
+        <OutstandingBalance balanceCards={balanceCards} setBalanceCards={handleChangeBalances} />
       ) : (
         <p>No hay saldos pendientes que coincidan con tu búsqueda.</p>
       )}
-      <OutstandingBalanceForm 
-        isOpen={isOpen} 
-        onClose={() => setIsOpen(!isOpen)} 
+      <OutstandingBalanceForm
+        isOpen={isOpen}
+        onClose={() => setIsOpen(!isOpen)}
         onAddBalance={handleAddBalance}
       />
     </>

@@ -3,15 +3,19 @@ import BASE_URL from "../UrlBase";
 
 export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
     const [formData, setFormData] = useState({
-        mount: ''
+        mount: '',
+        paymentMethod: 'efectivo'
     });
 
     
     if (!isOpen) return null;
 
     const handleChange = (e) => {
-        const value = e.target.value;
-        setFormData({ mount: value });
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     }
 
     
@@ -22,7 +26,7 @@ export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
         const newPayment = {
             datePay: new Date().toISOString().split('T')[0],
             mountPay: formData.mount,
-            payType: "Efectivo",
+            payType: formData.paymentMethod,
         };
 
         await fetch(`${BASE_URL}/pay-balance/${outstandingID}`, {
@@ -46,15 +50,28 @@ export function PayModal({ isOpen, onClose,outstandingID,setBalanceCards }) {
             <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
                 <form className="flex flex-col gap-4">
                     <h3 className="text-lg text-center font-semibold">Registrar pago</h3>
-                    <div className="flex justify-between gap-2">
+                    <div className="flex flex-col justify-between gap-2">
                         <input
                             type="text"
                             id="amount"
-                            name="amount"
+                            name="mount"
                             placeholder="Monto"
+                            value={formData.mount}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-3 py-2 w-full"
                         />
+
+                        <select 
+                            name="paymentMethod" 
+                            id="paymentMethod" 
+                            value={formData.paymentMethod}
+                            onChange={handleChange}
+                            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+                        >
+                            <option value="efectivo">Efectivo</option>
+                            <option value="qr">Qr</option>
+                            <option value="transferencia">Transferencia bancaria</option>
+                        </select>
                     </div>
 
                     <div className="flex justify-between">

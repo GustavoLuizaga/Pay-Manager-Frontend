@@ -2,8 +2,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { IoIosArrowRoundUp } from "react-icons/io";
 
 export function DetailBalancePage() {
-    const { id } = useParams(); // ID desde la URL
-    const { state } = useLocation(); // Datos del state
+    const { id } = useParams(); 
+    const { state } = useLocation();
 
     // Extraer todos los datos del state
     const {
@@ -32,8 +32,8 @@ export function DetailBalancePage() {
 
     return (
         <div className="flex flex-col items-center mx-auto">
-            <div className="max-w-xs mx-auto mt-4 flex flex-col gap-1 items-center">
-                <span className="text-sm text-gray-600">
+            <div className="w-full md:max-w-2xl mx-auto flex flex-col gap-1 text-center rounded-lg p-4 bg-white shadow-xs border border-gray-100">
+                <span className="text-xs text-gray-600">
                     Saldo pendiente
                 </span>
 
@@ -41,7 +41,7 @@ export function DetailBalancePage() {
                     Bs {pending}
                 </span>
 
-                <span className="text-xs rounded-xl py-1 px-3 mt-2 bg-blue-400/15 text-blue-600 font-semibold">
+                <span className="text-sm rounded-xl py-1 px-3 mt-2 bg-blue-400/15 text-blue-600 font-semibold w-fit mx-auto">
                     Monto total <strong>Bs {mount}</strong>
                 </span>
             </div>

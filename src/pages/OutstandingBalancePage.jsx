@@ -93,6 +93,24 @@ export function OutstandingBalancePage() {
     }
   }
 
+  const handleDeleteBalance = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/outstanding-balance/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log('Tarjeta eliminada con ID:', id);
+        setBalanceCards(prev => prev.filter(card => card.id !== id));
+        setOriginalCards(prev => prev.filter(card => card.id !== id));
+      } else {
+        console.error('Error al eliminar la tarjeta:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al eliminar la tarjeta:', error);
+    }
+  }
+
   const handleChangeBalances = async () => {
     try {
       const response = await fetch(`${BASE_URL}/outstanding-balance`);
@@ -139,7 +157,10 @@ export function OutstandingBalancePage() {
       </section>
       <h2 className="text-xl font-semibold mb-6">Saldos Pendientes</h2>
       {balanceCards?.length > 0 ? (
-        <OutstandingBalance balanceCards={balanceCards} setBalanceCards={handleChangeBalances} />
+        <OutstandingBalance 
+        balanceCards={balanceCards} 
+        setBalanceCards={handleChangeBalances} 
+        handleDeleteBalance={handleDeleteBalance} />
       ) : (
         <p>No hay saldos pendientes que coincidan con tu búsqueda.</p>
       )}

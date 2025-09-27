@@ -1,6 +1,6 @@
 
 import { OutstandingBalanceCard } from "./OustandingBalanceCard"; 
-export function OutstandingBalance({balanceCards, setBalanceCards}) {
+export function OutstandingBalance({balanceCards, setBalanceCards, handleDeleteBalance}) {
     return (
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
@@ -17,6 +17,7 @@ export function OutstandingBalance({balanceCards, setBalanceCards}) {
                     description={cardData.description}
                     payBalances={cardData.payBalances}
                     setBalanceCards={setBalanceCards}
+                    handleDeleteBalance={handleDeleteBalance}
                 />
             ))}
         </div>

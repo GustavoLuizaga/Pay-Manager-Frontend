@@ -16,6 +16,7 @@ export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmou
     const handleRegisterPayment = (e) => {
         e.stopPropagation();
         setIsOpen(!isOpen);
+        setShowMoreOptions(false); // Cerrar opciones cuando se abre el modal
     }
     const getInitials = (name) => {
         if (!name || typeof name !== 'string') return '??';
@@ -53,6 +54,7 @@ export function OutstandingBalanceCard({ id, title, fullName, endDate, totalAmou
     const handleDeleteClick = (e) => {
         e.stopPropagation();
         setIsOpenModalDeleted(true);
+        setShowMoreOptions(false); // Cerrar opciones cuando se abre el modal de confirmación
     }
 
     return (

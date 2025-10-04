@@ -69,13 +69,9 @@ export function OutstandingBalancePage() {
 
       if (response.ok) {
         const serverResponse = await response.json();
-        console.log('Respuesta completa del servidor:', serverResponse);
-
         const addedBalance = serverResponse.data || serverResponse;
-        console.log('Objeto a agregar:', addedBalance);
-
-        setBalanceCards(prev => [...prev, addedBalance]);
-        setOriginalCards(prev => [...prev, addedBalance]);
+        setBalanceCards(prev => [addedBalance, ...prev]);
+        setOriginalCards(prev => [addedBalance, ...prev]);
 
         if (query) {
           setBalanceCards(prev =>

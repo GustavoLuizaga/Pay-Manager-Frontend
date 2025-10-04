@@ -3,6 +3,8 @@ import { OutstandingBalance } from "../components/OustandingBalance";
 import { FiSearch, FiPlus } from "react-icons/fi";
 import { OutstandingBalanceForm } from "../components/OuststandingBalanceForm";
 import BASE_URL from "../UrlBase";
+import { getAllData } from "../services/GetAllData";
+import { createNewOutstandingBalance } from "../services/CreateNewOutatandingBalance";
 
 
 export function OutstandingBalancePage() {
@@ -15,12 +17,13 @@ export function OutstandingBalancePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/outstanding-balance`);
-        const data = await response.json();
-        setBalanceCards(data.data || []);
-        setOriginalCards(data.data || []);
+        const data = await getAllData();
+        setBalanceCards(data || []);
+        setOriginalCards(data || []);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error loading data:", error);
+        setBalanceCards([]);
+        setOriginalCards([]);
       }
     };
     fetchData();
@@ -38,7 +41,6 @@ export function OutstandingBalancePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (query === "") {
       setBalanceCards(originalCards);
       return;
@@ -47,7 +49,6 @@ export function OutstandingBalancePage() {
     const dataFiltered = balanceCards.filter(card =>
       card && card.fullName && card.fullName.toLowerCase().includes(query.toLowerCase())
     );
-
     setBalanceCards(dataFiltered);
   }
 
@@ -58,24 +59,12 @@ export function OutstandingBalancePage() {
 
   const handleAddBalance = async (newBalance) => {
     try {
-
-      const response = await fetch(`${BASE_URL}/outstanding-balance`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newBalance)
-      });
-
+      const response = await createNewOutstandingBalance(newBalance);
       if (response.ok) {
         const serverResponse = await response.json();
-        console.log('Respuesta completa del servidor:', serverResponse);
-
         const addedBalance = serverResponse.data || serverResponse;
-        console.log('Objeto a agregar:', addedBalance);
-
-        setBalanceCards(prev => [...prev, addedBalance]);
-        setOriginalCards(prev => [...prev, addedBalance]);
+        setBalanceCards(prev => [addedBalance, ...prev]);
+        setOriginalCards(prev => [addedBalance, ...prev]);
 
         if (query) {
           setBalanceCards(prev =>
@@ -157,10 +146,10 @@ export function OutstandingBalancePage() {
       </section>
       <h2 className="text-xl font-semibold mb-6">Saldos Pendientes</h2>
       {balanceCards?.length > 0 ? (
-        <OutstandingBalance 
-        balanceCards={balanceCards} 
-        setBalanceCards={handleChangeBalances} 
-        handleDeleteBalance={handleDeleteBalance} />
+        <OutstandingBalance
+          balanceCards={balanceCards}
+          setBalanceCards={handleChangeBalances}
+          handleDeleteBalance={handleDeleteBalance} />
       ) : (
         <p>No hay saldos pendientes que coincidan con tu búsqueda.</p>
       )}
